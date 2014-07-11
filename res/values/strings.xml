@@ -4,6 +4,12 @@
 	<string name="app_name">LightVPN</string>
 	
 	<!-- Test -->
-	<string name="connect">Connect</string>
+	<string name="connect">On</string>
+	<string name="server">Server</string>
+	<string name="user_name">User Name</string>
+	<string name="password">Password</string>
+	<string name="mppe">Mppe Encryption</string>
+	<string name="input">Type in the name</string>
+	<string name="disconnect">Off</string>
 
 </resources>

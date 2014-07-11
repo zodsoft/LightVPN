@@ -57,6 +57,20 @@ public class VpnManager
 		}
 	}
 	
+	public static boolean isVpnRunning() {
+		try {
+			Process p = RunCommand.run("pgrep mtpd");
+			p.waitFor();
+			if (!TextUtils.isEmpty(RunCommand.readInput(p).replace("\n", "").trim())) {
+				return true;
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		return false;
+	}
+	
 	private static String getDefaultIface() {
 		// TODO: get interface from command line
 		// For now, it is dummy

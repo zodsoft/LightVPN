@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/toggle" android:title="@null" android:actionLayout="@layout/action_toggle" android:showAsAction="always"></item><item android:id="@+id/save" android:icon="@drawable/ic_action_save" android:showAsAction="always" android:title="@null"></item>
+    
+    
+
+</menu>
