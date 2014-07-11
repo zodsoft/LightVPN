@@ -1,17 +1,29 @@
 package us.shandian.vpn;
 
-import android.app.*;
-import android.os.*;
-import android.view.*;
-import android.widget.*;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
-public class MainActivity extends Activity
+import us.shandian.vpn.R;
+import us.shandian.vpn.manager.VpnManager;
+import us.shandian.vpn.manager.VpnProfile;
+
+public class MainActivity extends Activity implements View.OnClickListener
 {
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-	{
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-    }
+	private Button mButton;
+	
+	@Override
+    public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		
+		mButton = (Button) findViewById(R.id.connect);
+		mButton.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+
+	}
 }
