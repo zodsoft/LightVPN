@@ -3,7 +3,7 @@
 
 	<string name="app_name">LightVPN</string>
 	
-	<!-- Test -->
+	<!-- Main -->
 	<string name="connect">On</string>
 	<string name="server">Server</string>
 	<string name="user_name">User Name</string>
@@ -11,5 +11,8 @@
 	<string name="mppe">Mppe Encryption</string>
 	<string name="input">Type in the name</string>
 	<string name="disconnect">Off</string>
+	
+	<!-- Msg -->
+	<string name="plz_wait">Please wait...</string>
 
 </resources>

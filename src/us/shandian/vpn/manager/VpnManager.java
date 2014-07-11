@@ -14,6 +14,13 @@ public class VpnManager
 	
 	// Start connection to a PPTP server
 	public static boolean startVpn(VpnProfile p) {
+		// Check
+		if (TextUtils.isEmpty(p.server) || TextUtils.isEmpty(p.username) ||
+			TextUtils.isEmpty(p.password)) {
+			
+			return false;
+		}
+		
 		// Iface
 		String iface = getDefaultIface();
 		
@@ -127,7 +134,7 @@ public class VpnManager
 	}
 	
 	private static boolean blockUntilStarted() {
-		int n = MAX_WAIT_TIME * 1000;
+		int n = MAX_WAIT_TIME * 2;
 		
 		for (int i = 0; i < n; i++) {
 			try {
@@ -138,7 +145,7 @@ public class VpnManager
 				if (out.contains(PPP_INTERFACE)) {
 					return true;
 				} else {
-					Thread.sleep(200);
+					Thread.sleep(500);
 				}
 			} catch (Exception e) {
 				break;

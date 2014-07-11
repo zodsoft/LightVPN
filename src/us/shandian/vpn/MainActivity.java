@@ -2,6 +2,7 @@ package us.shandian.vpn;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
@@ -102,13 +103,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 			@Override
 			public void onCheckedChanged(CompoundButton v, boolean checked) {
 				if (!checked) {
-					VpnManager.stopVpn();
+					stopVpn();
 				} else {
-					VpnProfile p = mFragment.getProfile();
-					
-					if (p != null && VpnManager.startVpn(p)) {
-						mLoader.updateProfile(p);
-					}
+					startVpn();
 				}
 			}
 		});
@@ -161,5 +158,71 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list, R.id.list_text, array);
 		mList.setAdapter(adapter);
 		return array;
+	}
+	
+	private ProgressDialog showPlzWait() {
+		ProgressDialog d = new ProgressDialog(this);
+		d.setMessage(getResources().getString(R.string.plz_wait));
+		d.setCancelable(false);
+		d.show();
+		return d;
+	}
+	
+	private void dismissPlzWait(final ProgressDialog dialog) {
+		mList.post(new Runnable() {
+			@Override
+			public void run() {
+				dialog.dismiss();
+			}
+		});
+	}
+	
+	private void stopVpn() {
+		final ProgressDialog d = showPlzWait();
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				VpnManager.stopVpn();
+				dismissPlzWait(d);
+			}
+		}).start();
+	}
+	
+	private void startVpn() {
+		final ProgressDialog d = showPlzWait();
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				VpnProfile p = mFragment.getProfile();
+
+				if (p != null && VpnManager.startVpn(p)) {
+					updateProfile(p);
+				} else {
+					setUnchecked();
+				}
+				
+				dismissPlzWait(d);
+			}
+		}).start();
+	}
+	
+	private void updateProfile(final VpnProfile p) {
+		mList.post(new Runnable() {
+			@Override
+			public void run() {
+				mLoader.updateProfile(p);
+			}
+		});
+	}
+	
+	private void setUnchecked() {
+		mList.post(new Runnable() {
+			@Override
+			public void run() {
+				mSwitch.setChecked(false);
+			}
+		});
 	}
 }
