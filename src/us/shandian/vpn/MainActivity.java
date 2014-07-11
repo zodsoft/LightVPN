@@ -30,7 +30,7 @@ import us.shandian.vpn.manager.VpnManager;
 import us.shandian.vpn.manager.VpnProfile;
 import us.shandian.vpn.util.ProfileLoader;
 
-public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener
+public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener
 {
 	private DrawerLayout mDrawer;
 	private ActionBarDrawerToggle mToggle;
@@ -71,6 +71,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 		mFooter = (ImageView) inflater.inflate(R.layout.footer, null);
 		mList.addFooterView(mFooter);
 		mList.setOnItemClickListener(this);
+		mList.setOnItemLongClickListener(this);
 		mFooter.setOnClickListener(this);
 		
 	}
@@ -135,7 +136,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-		if (id < mArray.size()) {
+		if (position < mArray.size()) {
 			VpnProfile p = mLoader.getProfile(mArray.get(position));
 			mFragment.setProfile(p);
 			mLoader.setDefault(p);
@@ -144,12 +145,43 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 	}
 
 	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View v, final int position, long id) {
+		if (position < mArray.size()) {
+			new AlertDialog.Builder(this)
+							.setMessage(R.string.delete)
+							.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface d, int id) {
+									String name = mArray.get(position);
+									mLoader.deleteProfile(name);
+									mArray = reloadList();
+
+									if (mLoader.getDefault() == null || mLoader.getDefault().name.equals(name)) {
+										if (mArray.size() > 0) {
+											VpnProfile p = mLoader.getProfile(mArray.get(0));
+											mFragment.setProfile(p);
+											mLoader.setDefault(p);
+										} else {
+											mFragment.removeProfile();
+										}
+									}
+								}
+							})
+							.setNegativeButton(android.R.string.cancel, null)
+							.create()
+							.show();
+		}
+		
+		return true;
+	}
+
+	@Override
 	public void onClick(View v) {
 		final EditText text = new EditText(this);
 		text.setSingleLine(true);
 		new AlertDialog.Builder(this)
 							.setTitle(R.string.input)
-							.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+							.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog, int id) {
 									String name = text.getText().toString().trim();
@@ -160,7 +192,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 									}
 								}
 							})
-							.setPositiveButton(android.R.string.cancel, null)
+							.setNegativeButton(android.R.string.cancel, null)
 							.setView(text)
 							.create()
 							.show();

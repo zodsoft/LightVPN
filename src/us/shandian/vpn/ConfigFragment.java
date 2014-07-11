@@ -49,6 +49,12 @@ public class ConfigFragment extends Fragment {
 		mPassword.setEnabled(false);
 		mMppe.setEnabled(false);
 		
+		// Clean up
+		mServer.setText("");
+		mUserName.setText("");
+		mPassword.setText("");
+		mMppe.setText("");
+		
 		getActivity().getActionBar().setTitle(R.string.app_name);
 	}
 	

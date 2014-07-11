@@ -14,5 +14,6 @@
 	
 	<!-- Msg -->
 	<string name="plz_wait">Please wait...</string>
+	<string name="delete">Delete?</string>
 
 </resources>

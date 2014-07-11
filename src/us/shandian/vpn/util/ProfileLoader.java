@@ -118,4 +118,14 @@ public class ProfileLoader {
 		save();
 	}
 	
+	public void deleteProfile(String name) {
+		mEntries.remove(name);
+		
+		// Clean up
+		SharedPreferences pref = mContext.getSharedPreferences(name, Context.MODE_WORLD_READABLE);
+		pref.edit().clear().commit();
+		
+		save();
+	}
+	
 }
