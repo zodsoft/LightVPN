@@ -72,9 +72,41 @@ public class VpnManager
 	}
 	
 	private static String getDefaultIface() {
-		// TODO: get interface from command line
-		// For now, it is dummy
-		return "wlan0";
+		String routes;
+		
+		try {
+			Process p = RunCommand.run("ip ro");
+			p.waitFor();
+			routes = RunCommand.readInput(p);
+		} catch (Exception e) {
+			routes = null;
+		}
+		
+		if (routes != null) {
+			for (String route : routes.split("\n")) {
+				if (route.startsWith("default")) {
+					String iface = null;
+					boolean last = false;
+					for (String ele : route.split(" ")) {
+						if (last) {
+							iface = ele;
+							break;
+						} else if (ele.equals("dev")) {
+							last = true;
+						}
+					}
+					
+					if (iface != null) {
+						return iface;
+					} else {
+						break;
+					}
+				}
+			}
+		}
+		
+		// Can't load default interface? That's not possible.
+		return "eth0";
 	}
 	
 	private static void startMtpd(String[] args) {
