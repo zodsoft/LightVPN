@@ -154,7 +154,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 								public void onClick(DialogInterface dialog, int id) {
 									String name = text.getText().toString().trim();
 									
-									if (!TextUtils.isEmpty(name)) {
+									if (!TextUtils.isEmpty(name) && !mArray.contains(name)) {
 										mFragment.setProfile(mLoader.createProfile(name));
 										mArray = reloadList();
 									}
