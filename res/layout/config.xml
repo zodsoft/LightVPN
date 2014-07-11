@@ -1,53 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:alignmentMode="alignBounds"
 	android:columnCount="2"
-	android:padding="5dp" >
+	android:padding="5dp">
 
 	<TextView
 		android:text="@string/server"
 		android:layout_width="wrap_content"
-		android:layout_height="60dp"
+		android:layout_height="50dp"
 		android:gravity="center_vertical"/>
 
 	<EditText
 		android:id="@+id/server"
 		android:layout_width="match_parent"
-		android:layout_height="60dp" />
+		android:layout_height="50dp"
+		android:singleLine="true"/>
 
 	<TextView
 		android:text="@string/user_name"
 		android:layout_width="wrap_content"
-		android:layout_height="60dp"
+		android:layout_height="50dp"
 		android:gravity="center_vertical"/>
 
 	<EditText
 		android:id="@+id/username"
 		android:layout_width="match_parent"
-		android:layout_height="60dp" />
+		android:layout_height="50dp"
+		android:singleLine="true"/>
 
 	<TextView
 		android:text="@string/password"
 		android:layout_width="wrap_content"
-		android:layout_height="60dp"
+		android:layout_height="50dp"
 		android:gravity="center_vertical"/>
 
 	<EditText
 		android:id="@+id/password"
 		android:layout_width="match_parent"
-		android:layout_height="60dp" />
+		android:layout_height="50dp"
+		android:singleLine="true"
+		android:inputType="textPassword"/>
 
 	<TextView
 		android:text="@string/mppe"
 		android:layout_width="wrap_content"
-		android:layout_height="60dp"
+		android:layout_height="50dp"
 		android:gravity="center_vertical"/>
 
 	<CheckBox
 		android:id="@+id/mppe"
 		android:layout_width="wrap_content"
-		android:layout_height="60dp" />
-		
+		android:layout_height="50dp"/>
+
 </GridLayout>
+
