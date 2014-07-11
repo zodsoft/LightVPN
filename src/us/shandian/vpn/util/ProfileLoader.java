@@ -16,6 +16,7 @@ public class ProfileLoader {
 	
 	private Context mContext;
 	private SharedPreferences mEntryPref;
+	private String mDefault;
 	private HashMap<String, VpnProfile> mEntries = new HashMap<String, VpnProfile>();
 	
 	public static ProfileLoader getInstance(Context context) {
@@ -29,7 +30,7 @@ public class ProfileLoader {
 	private ProfileLoader(Context context) {
 		mContext = context;
 		mEntryPref = context.getSharedPreferences("vpns", Context.MODE_WORLD_READABLE);
-		
+		mDefault = mEntryPref.getString("def", "");
 		load();
 	}
 	
@@ -56,6 +57,7 @@ public class ProfileLoader {
 	}
 	
 	private void save() {
+		
 		StringBuilder s = new StringBuilder();
 		
 		for (HashMap.Entry<String, VpnProfile> e : mEntries.entrySet()) {
@@ -76,7 +78,7 @@ public class ProfileLoader {
 			edit.commit();
 		}
 		
-		mEntryPref.edit().putString("vpns", s.toString()).commit();
+		mEntryPref.edit().putString("vpns", s.toString()).putString("def", mDefault).commit();
 	}
 	
 	public VpnProfile createProfile(String name) {
@@ -105,6 +107,15 @@ public class ProfileLoader {
 		}
 		
 		return list;
+	}
+	
+	public VpnProfile getDefault() {
+		return getProfile(mDefault);
+	}
+	
+	public void setDefault(VpnProfile p) {
+		mDefault = p.name;
+		save();
 	}
 	
 }

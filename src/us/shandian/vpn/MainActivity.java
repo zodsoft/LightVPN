@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -83,7 +84,13 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 		mArray = reloadList();
 		
 		if (mArray.size() > 0) {
-			mFragment.setProfile(mLoader.getProfile(mArray.get(0)));
+			VpnProfile p = mLoader.getDefault();
+			
+			if (p != null) {
+				mFragment.setProfile(p);
+			} else {
+				mFragment.setProfile(mLoader.getProfile(mArray.get(0)));
+			}
 		}
 	}
 	
@@ -129,7 +136,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		if (id < mArray.size()) {
-			mFragment.setProfile(mLoader.getProfile(mArray.get(position)));
+			VpnProfile p = mLoader.getProfile(mArray.get(position));
+			mFragment.setProfile(p);
+			mLoader.setDefault(p);
 			mDrawer.closeDrawer(Gravity.START);
 		}
 	}
@@ -137,14 +146,18 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 	@Override
 	public void onClick(View v) {
 		final EditText text = new EditText(this);
+		text.setSingleLine(true);
 		new AlertDialog.Builder(this)
 							.setTitle(R.string.input)
 							.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog, int id) {
-									String name = text.getText().toString();
-									mFragment.setProfile(mLoader.createProfile(name));
-									mArray = reloadList();
+									String name = text.getText().toString().trim();
+									
+									if (!TextUtils.isEmpty(name)) {
+										mFragment.setProfile(mLoader.createProfile(name));
+										mArray = reloadList();
+									}
 								}
 							})
 							.setPositiveButton(android.R.string.cancel, null)
