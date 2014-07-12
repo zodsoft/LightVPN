@@ -53,9 +53,9 @@ public class ConfigFragment extends Fragment {
 		mServer.setText("");
 		mUserName.setText("");
 		mPassword.setText("");
-		mMppe.setText("");
+		mMppe.setChecked(false);
 		
-		getActivity().getActionBar().setTitle(R.string.app_name);
+		getActivity().getActionBar().setSubtitle(null);
 	}
 	
 	public void setProfile(VpnProfile p) {
@@ -74,7 +74,7 @@ public class ConfigFragment extends Fragment {
 		mMppe.setChecked(p.mppe);
 		
 		// ActionBar
-		getActivity().getActionBar().setTitle(getResources().getString(R.string.app_name) + " - " + p.name);
+		getActivity().getActionBar().setSubtitle(p.name);
 	}
 	
 	public VpnProfile getProfile() {
