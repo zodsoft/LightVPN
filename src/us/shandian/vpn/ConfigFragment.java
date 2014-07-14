@@ -94,11 +94,11 @@ public class ConfigFragment extends Fragment {
 	public VpnProfile getProfile() {
 		if (mProfile == null) return null;
 		
-		mProfile.server = mServer.getText().toString();
-		mProfile.username = mUserName.getText().toString();
-		mProfile.password = mPassword.getText().toString();
-		mProfile.dns1 = mDns1.getText().toString();
-		mProfile.dns2 = mDns2.getText().toString();
+		mProfile.server = mServer.getText().toString().trim();
+		mProfile.username = mUserName.getText().toString().trim();
+		mProfile.password = mPassword.getText().toString().trim();
+		mProfile.dns1 = mDns1.getText().toString().trim();
+		mProfile.dns2 = mDns2.getText().toString().trim();
 		mProfile.mppe = mMppe.isChecked();
 		
 		return mProfile;
