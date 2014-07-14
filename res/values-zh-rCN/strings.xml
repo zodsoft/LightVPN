@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">LightVPN</string>
+	
+	<!-- Main -->
+	<string name="connect">开启</string>
+	<string name="server">服务器</string>
+	<string name="user_name">用户名</string>
+	<string name="password">密码</string>
+	<string name="mppe">Mppe 加密</string>
+	<string name="input">请输入名称</string>
+	<string name="disconnect">关闭</string>
+	<string name="dns1">DNS 1</string>
+	<string name="dns2">DNS 2</string>
+	
+	<!-- Msg -->
+	<string name="plz_wait">请稍候...</string>
+	<string name="delete">删除?</string>
+
+</resources>
