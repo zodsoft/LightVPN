@@ -49,6 +49,8 @@ public class ProfileLoader {
 			p.server = pref.getString("server", "");
 			p.username = pref.getString("username", "");
 			p.password = pref.getString("password", "");
+			p.dns1 = pref.getString("dns1", "8.8.8.8");
+			p.dns2 = pref.getString("dns2", "8.8.4.4");
 			p.mppe = pref.getBoolean("mppe", true);
 			
 			// Put to map
@@ -74,6 +76,8 @@ public class ProfileLoader {
 			edit.putString("server", p.server);
 			edit.putString("username", p.username);
 			edit.putString("password", p.password);
+			edit.putString("dns1", p.dns1);
+			edit.putString("dns2", p.dns2);
 			edit.putBoolean("mppe", p.mppe);
 			edit.commit();
 		}

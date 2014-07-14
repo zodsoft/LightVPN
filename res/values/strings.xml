@@ -11,6 +11,8 @@
 	<string name="mppe">Mppe Encryption</string>
 	<string name="input">Type in the name</string>
 	<string name="disconnect">Off</string>
+	<string name="dns1">DNS 1</string>
+	<string name="dns2">DNS 2</string>
 	
 	<!-- Msg -->
 	<string name="plz_wait">Please wait...</string>

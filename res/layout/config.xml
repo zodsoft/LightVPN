@@ -51,6 +51,30 @@
 			android:layout_width="wrap_content"
 			android:layout_height="50dp"
 			android:gravity="center_vertical"
+			android:text="@string/dns1" />
+
+		<EditText
+			android:id="@+id/dns1"
+			android:layout_width="match_parent"
+			android:layout_height="50dp"
+			android:singleLine="true" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="50dp"
+			android:gravity="center_vertical"
+			android:text="@string/dns2" />
+
+		<EditText
+			android:id="@+id/dns2"
+			android:layout_width="match_parent"
+			android:layout_height="50dp"
+			android:singleLine="true" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="50dp"
+			android:gravity="center_vertical"
 			android:text="@string/mppe" />
 
 		<CheckBox

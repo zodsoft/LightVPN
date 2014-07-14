@@ -42,7 +42,7 @@ public class VpnManager
 		setupRoute();
 		
 		// Set up dns
-		setupDns();
+		setupDns(p);
 		
 		return true;
 	}
@@ -170,7 +170,7 @@ public class VpnManager
 		}
 	}
 	
-	private static void setupDns() {
+	private static void setupDns(VpnProfile profile) {
 		// For now, I haven't got any idea of how to get the DNS returned by pppd
 		// So we just use 8.8.8.8 and 8.8.4.4
 		
@@ -193,9 +193,9 @@ public class VpnManager
 		
 		StringBuilder s = new StringBuilder();
 		s.append("iptables -t nat -A OUTPUT -d ").append(dns1).append("/32 -o ")
-			.append(PPP_INTERFACE).append(" -p udp -m udp --dport 53 -j DNAT --to-destination 8.8.8.8:53\n")
+			.append(PPP_INTERFACE).append(" -p udp -m udp --dport 53 -j DNAT --to-destination ").append(profile.dns1).append(":53\n")
 		 .append("iptables -t nat -A OUTPUT -d ").append(dns2).append("/32 -o ")
-			.append(PPP_INTERFACE).append(" -p udp -m udp --dport 53 -j DNAT --to-destination 8.8.4.4:53");
+			.append(PPP_INTERFACE).append(" -p udp -m udp --dport 53 -j DNAT --to-destination ").append(profile.dns2).append(":53");
 		
 		try {
 			RunCommand.run(s.toString()).waitFor();
